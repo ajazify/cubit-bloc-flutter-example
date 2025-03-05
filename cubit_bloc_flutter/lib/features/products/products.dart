@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cubit_bloc_flutter/features/products/products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 class Products extends StatelessWidget {
   const Products({super.key});
@@ -65,8 +66,18 @@ class Products extends StatelessWidget {
                                     child: CachedNetworkImage(
                                       imageUrl: state.products[index].image!,
                                       errorWidget: (context, url, error) => Icon(Icons.error),
-                                      placeholder: (context, url) =>
-                                          SizedBox(height: 20, width: 20, child: CircularProgressIndicator()),
+                                      placeholder: (context, url) => Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
